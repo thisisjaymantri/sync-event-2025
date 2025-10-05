@@ -10,7 +10,7 @@ export default function DVDScreensaver() {
 
   // Position and velocity state
   const positionRef = useRef({ x: 100, y: 100 });
-  const velocityRef = useRef({ dx: 2, dy: 2 });
+  const velocityRef = useRef({ dx: 0.8, dy: 0.8 }); // Slower speed for classic DVD feel
   const [currentColor, setCurrentColor] = useState("#FF0000"); // Start with red
   
   // RGB color palette
