@@ -20,8 +20,7 @@ npm install
 # Create local environment file
 cat > .env.local << EOF
 STAGING_PASSWORD=your-password
-GOOGLE_SHEET_ID=your-sheet-id
-GOOGLE_API_KEY=your-api-key
+GOOGLE_SHEET_CSV_URL=https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/export?format=csv&gid=0
 EOF
 
 # Run development server
@@ -49,13 +48,16 @@ The site is protected with a password gate to restrict access.
 
 Enable real-time schedule editing via Google Sheets so event staff can update from their phones!
 
-**Quick Setup:**
+**✨ Simple Setup (No API Key!):**
 1. Create a Google Sheet with columns: `Time`, `Event`, `Status`
-2. Get a Google Sheets API key
-3. Add `GOOGLE_SHEET_ID` and `GOOGLE_API_KEY` to Vercel
-4. Event staff can now edit the schedule live!
+2. Make it public (view-only)
+3. Get the CSV export URL
+4. Add `GOOGLE_SHEET_CSV_URL` to Vercel
+5. Event staff can now edit the schedule live!
 
-**📖 Full Guide:** See [GOOGLE_SHEETS_SETUP.md](./GOOGLE_SHEETS_SETUP.md) for complete step-by-step instructions.
+**📖 Setup Guides:**
+- **[SIMPLE_SETUP.md](./SIMPLE_SETUP.md)** ⭐ **Recommended** - 5 minutes, no API key, works with any Google account
+- **[GOOGLE_SHEETS_SETUP.md](./GOOGLE_SHEETS_SETUP.md)** - Advanced method with API (if you have Google Cloud access)
 
 **Without Google Sheets:** The app uses the hardcoded schedule from `lib/schedule-data.ts` - everything still works!
 
