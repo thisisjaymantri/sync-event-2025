@@ -1,8 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import ThemedIcon from "./ThemedIcon";
 
-export default function Header() {
+interface HeaderProps {
+  onTogglePanel: () => void;
+  isPanelOpen: boolean;
+}
+
+export default function Header({ onTogglePanel, isPanelOpen }: HeaderProps) {
+  const [isPressed, setIsPressed] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="relative box-border flex h-[32px] w-full shrink-0 items-center justify-between px-[12px] py-[4px]">
       {/* Border */}
@@ -28,14 +37,34 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Right section - Sidebar toggle */}
-      <ThemedIcon
-        src="/icons/IconSidebarSimpleRightSquare.svg"
-        alt="Toggle sidebar"
-        width={16}
-        height={16}
-        className="icon-primary z-10"
-      />
+      {/* Right section - Sidebar toggle button */}
+      <button
+        onClick={onTogglePanel}
+        onMouseDown={() => setIsPressed(true)}
+        onMouseUp={() => setIsPressed(false)}
+        onMouseLeave={() => {
+          setIsPressed(false);
+          setIsHovered(false);
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        className="z-10 flex size-[20px] shrink-0 items-center justify-center rounded-[2px] transition-colors"
+        style={{
+          backgroundColor: isPressed
+            ? "var(--color-surface-pressed)"
+            : isHovered
+            ? "var(--color-surface-hover)"
+            : "transparent",
+        }}
+        aria-label={isPanelOpen ? "Hide schedule" : "Show schedule"}
+      >
+        <ThemedIcon
+          src="/icons/IconSidebarSimpleRightSquare.svg"
+          alt=""
+          width={16}
+          height={16}
+          className="icon-primary"
+        />
+      </button>
     </div>
   );
 }
