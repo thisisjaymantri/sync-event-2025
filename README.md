@@ -18,7 +18,11 @@ A web application for the Sync '25 event featuring a DVD-style screensaver anima
 npm install
 
 # Create local environment file
-echo "STAGING_PASSWORD=sync2025" > .env.local
+cat > .env.local << EOF
+STAGING_PASSWORD=your-password
+GOOGLE_SHEET_ID=your-sheet-id
+GOOGLE_API_KEY=your-api-key
+EOF
 
 # Run development server
 npm run dev
@@ -26,22 +30,34 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
-### Password Protection
+---
 
-The site is protected with a password gate. Set the `STAGING_PASSWORD` environment variable:
+## 🔒 Password Protection
 
-**Local Development:**
-```bash
-# .env.local
-STAGING_PASSWORD=your-password
-```
+The site is protected with a password gate to restrict access.
 
-**Vercel Production:**
+**Vercel Setup (Required):**
 1. Go to Vercel Dashboard → Project Settings → Environment Variables
 2. Add: `STAGING_PASSWORD` = `your-secure-password`
 3. Redeploy
 
-Default password (if not set): `sync2025`
+⚠️ No fallback password - must be set in Vercel to work!
+
+---
+
+## 📊 Live Schedule Updates (Optional)
+
+Enable real-time schedule editing via Google Sheets so event staff can update from their phones!
+
+**Quick Setup:**
+1. Create a Google Sheet with columns: `Time`, `Event`, `Status`
+2. Get a Google Sheets API key
+3. Add `GOOGLE_SHEET_ID` and `GOOGLE_API_KEY` to Vercel
+4. Event staff can now edit the schedule live!
+
+**📖 Full Guide:** See [GOOGLE_SHEETS_SETUP.md](./GOOGLE_SHEETS_SETUP.md) for complete step-by-step instructions.
+
+**Without Google Sheets:** The app uses the hardcoded schedule from `lib/schedule-data.ts` - everything still works!
 
 ## Font Setup
 
