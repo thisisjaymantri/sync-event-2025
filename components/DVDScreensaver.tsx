@@ -102,8 +102,8 @@ export default function DVDScreensaver() {
         }}
       >
         <Image
-          src="/sync-logo.svg"
-          alt="Sync"
+          src="/sync-wordmark.svg"
+          alt="Sync '25"
           width={LOGO_WIDTH}
           height={LOGO_HEIGHT}
           className="h-full w-full"

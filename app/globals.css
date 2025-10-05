@@ -47,3 +47,34 @@ body {
   --color-icon-secondary: rgba(255, 255, 255, 0.5);
   --color-theme-toggle-active-bg: #000000;
 }
+
+/* SVG Icon Theming */
+.themed-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Primary icons (header logo, sidebar) - use icon-primary color */
+.themed-icon.icon-primary img,
+.themed-icon.icon-primary svg {
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(10%) contrast(100%);
+}
+
+.dark .themed-icon.icon-primary img,
+.dark .themed-icon.icon-primary svg {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(97%) contrast(97%);
+}
+
+/* Secondary icons (mute, theme toggle inactive) - use icon-secondary color */
+.themed-icon.icon-secondary img,
+.themed-icon.icon-secondary svg {
+  filter: brightness(0) saturate(100%) invert(49%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(99%) contrast(85%);
+  opacity: 0.5;
+}
+
+.dark .themed-icon.icon-secondary img,
+.dark .themed-icon.icon-secondary svg {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+  opacity: 0.5;
+}

@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import ThemedIcon from "./ThemedIcon";
 
 export default function Footer() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [btcPrice, setBtcPrice] = useState("$200,020.48");
 
@@ -34,7 +34,6 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
-  const iconPath = mounted ? `/icons/${resolvedTheme || "light"}` : "/icons/light";
   const isLight = mounted && resolvedTheme === "light";
   const isDark = mounted && resolvedTheme === "dark";
 
@@ -60,47 +59,44 @@ export default function Footer() {
       <div className="z-10 flex shrink-0 items-center gap-[24px]">
         {/* Theme toggle */}
         <div className="box-border flex shrink-0 items-center gap-0 rounded-[4px] bg-[var(--color-surface-sunken)] p-[2px]">
-          <button
-            onClick={() => setTheme("light")}
-            className="relative size-[16px] shrink-0 rounded-[3.2px] transition-colors"
-            style={mounted ? { background: isLight ? "var(--color-theme-toggle-active-bg)" : "transparent" } : undefined}
-            aria-label="Light theme"
-          >
-            <div className="absolute left-1/2 top-1/2 size-[12px] -translate-x-1/2 -translate-y-1/2">
-              <Image
-                src={`${iconPath}/sun.svg`}
-                alt="Light theme"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </button>
-          <button
-            onClick={() => setTheme("dark")}
-            className="relative size-[16px] shrink-0 rounded-[3.2px] transition-colors"
-            style={mounted ? { background: isDark ? "var(--color-theme-toggle-active-bg)" : "transparent" } : undefined}
-            aria-label="Dark theme"
-          >
-            <div className="absolute left-1/2 top-1/2 size-[12px] -translate-x-1/2 -translate-y-1/2">
-              <Image
-                src={`${iconPath}/moon.svg`}
-                alt="Dark theme"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </button>
+            <button
+                onClick={() => setTheme("light")}
+                className="relative flex size-[16px] shrink-0 items-center justify-center rounded-[3.2px] transition-colors"
+                style={mounted ? { background: isLight ? "var(--color-theme-toggle-active-bg)" : "transparent" } : undefined}
+                aria-label="Light theme"
+              >
+                <ThemedIcon
+                  src="/icons/icon-sun.svg"
+                  alt="Light theme"
+                  width={12}
+                  height={12}
+                  className="icon-primary"
+                />
+              </button>
+              <button
+                onClick={() => setTheme("dark")}
+                className="relative flex size-[16px] shrink-0 items-center justify-center rounded-[3.2px] transition-colors"
+                style={mounted ? { background: isDark ? "var(--color-theme-toggle-active-bg)" : "transparent" } : undefined}
+                aria-label="Dark theme"
+              >
+                <ThemedIcon
+                  src="/icons/icon-moon.svg"
+                  alt="Dark theme"
+                  width={12}
+                  height={12}
+                  className="icon-primary"
+                />
+              </button>
         </div>
 
-        {/* Mute button */}
-        <div className="relative size-[16px] shrink-0 opacity-50">
-          <Image
-            src={`${iconPath}/mute.svg`}
-            alt="Mute"
-            fill
-            className="object-contain"
-          />
-        </div>
+            {/* Mute button */}
+            <ThemedIcon
+              src="/icons/icon-mute.svg"
+              alt="Mute"
+              width={16}
+              height={16}
+              className="icon-secondary"
+            />
       </div>
     </div>
   );
