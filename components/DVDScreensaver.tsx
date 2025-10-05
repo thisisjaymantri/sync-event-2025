@@ -104,7 +104,7 @@ export default function DVDScreensaver() {
       {/* Border right */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 border-r border-[rgba(255,255,255,0.1)]"
+        className="pointer-events-none absolute inset-0 border-r-[0.5px] border-[var(--color-border-tertiary)]"
       />
 
       {/* Bouncing logo */}
