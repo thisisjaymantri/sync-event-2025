@@ -57,10 +57,10 @@ body {
 /* Active Indicator Pulse Animation */
 @keyframes pulse-indicator {
   0%, 100% {
-    transform: translateY(-50%) translateY(-3px);
+    transform: translateY(-50%) translateY(-5px);
   }
   50% {
-    transform: translateY(-50%) translateY(3px);
+    transform: translateY(-50%) translateY(5px);
   }
 }
 
