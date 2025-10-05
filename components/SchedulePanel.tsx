@@ -37,22 +37,53 @@ export default function SchedulePanel() {
     return () => clearInterval(interval);
   }, []);
 
+  // Separate schedule into completed and non-completed events
+  const completedEvents = scheduleData.filter((item) => item.status === "Complete");
+  const nonCompletedEvents = scheduleData.filter((item) => item.status !== "Complete");
+  
+  // Show only last 3 completed events if > 3
+  const shouldShowFade = completedEvents.length > 3;
+  const visibleCompletedEvents = shouldShowFade 
+    ? completedEvents.slice(-3) 
+    : completedEvents;
+
   return (
-    <div className="flex h-full w-[420px] shrink-0 flex-col items-start overflow-clip">
+    <div className="relative flex h-full w-[420px] shrink-0 flex-col items-start overflow-clip">
       <div className="flex w-full shrink-0 flex-col items-start overflow-clip">
-        {scheduleData.map((item, index) => (
+        {/* Completed events (last 3 if > 3) */}
+        {visibleCompletedEvents.map((item, index) => (
           <ListItem
-            key={index}
+            key={`complete-${index}`}
             time={item.time}
             event={item.event}
             status={item.status}
-            last={index === scheduleData.length - 1}
+            last={false}
+          />
+        ))}
+
+        {/* Active and Upcoming events */}
+        {nonCompletedEvents.map((item, index) => (
+          <ListItem
+            key={`active-upcoming-${index}`}
+            time={item.time}
+            event={item.event}
+            status={item.status}
+            last={index === nonCompletedEvents.length - 1}
           />
         ))}
       </div>
+
+      {/* Gradient fade overlay (only if > 3 completed events) */}
+      {shouldShowFade && (
+        <div
+          className="pointer-events-none absolute left-0 top-0 h-[72px] w-[420px] bg-gradient-to-t from-transparent to-[var(--color-surface-primary)]"
+          aria-hidden="true"
+        />
+      )}
+
       {/* Debug indicator (optional - remove in production) */}
       {process.env.NODE_ENV === "development" && (
-        <div className="absolute bottom-2 right-2 rounded bg-black/50 px-2 py-1 text-[10px] text-white">
+        <div className="absolute bottom-2 right-2 z-10 rounded bg-black/50 px-2 py-1 text-[10px] text-white">
           {source}
         </div>
       )}
