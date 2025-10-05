@@ -13,8 +13,8 @@ export default function Footer() {
   }, []);
 
   const iconPath = mounted ? `/icons/${resolvedTheme || "light"}` : "/icons/light";
-  const isLight = resolvedTheme === "light";
-  const isDark = resolvedTheme === "dark";
+  const isLight = mounted && resolvedTheme === "light";
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <div className="relative box-border flex h-[32px] w-full shrink-0 items-center justify-between px-[12px] py-0">
@@ -41,7 +41,7 @@ export default function Footer() {
           <button
             onClick={() => setTheme("light")}
             className="relative size-[16px] shrink-0 rounded-[3.2px] transition-colors"
-            style={{ background: isLight ? "var(--color-theme-toggle-active-bg)" : "transparent" }}
+            style={mounted ? { background: isLight ? "var(--color-theme-toggle-active-bg)" : "transparent" } : undefined}
             aria-label="Light theme"
           >
             <div className="absolute left-1/2 top-1/2 size-[12px] -translate-x-1/2 -translate-y-1/2">
@@ -56,7 +56,7 @@ export default function Footer() {
           <button
             onClick={() => setTheme("dark")}
             className="relative size-[16px] shrink-0 rounded-[3.2px] transition-colors"
-            style={{ background: isDark ? "var(--color-theme-toggle-active-bg)" : "transparent" }}
+            style={mounted ? { background: isDark ? "var(--color-theme-toggle-active-bg)" : "transparent" } : undefined}
             aria-label="Dark theme"
           >
             <div className="absolute left-1/2 top-1/2 size-[12px] -translate-x-1/2 -translate-y-1/2">
