@@ -11,7 +11,11 @@ export default function DVDScreensaver() {
   // Position and velocity state
   const positionRef = useRef({ x: 100, y: 100 });
   const velocityRef = useRef({ dx: 2, dy: 2 });
-  const hueRef = useRef(0); // For RGB color cycling
+  const [currentColor, setCurrentColor] = useState("#FF0000"); // Start with red
+  
+  // RGB color palette
+  const colors = ["#FF0000", "#00FF00", "#0000FF"]; // Red, Green, Blue
+  const colorIndexRef = useRef(0);
 
   // Logo dimensions
   const LOGO_WIDTH = 268.612;
@@ -38,8 +42,9 @@ export default function DVDScreensaver() {
         positionRef.current.x >= containerWidth - LOGO_WIDTH
       ) {
         velocityRef.current.dx *= -1;
-        // Cycle through RGB: Red (0°) -> Green (120°) -> Blue (240°) -> Red
-        hueRef.current = (hueRef.current + 120) % 360;
+        // Cycle to next color: Red -> Green -> Blue -> Red
+        colorIndexRef.current = (colorIndexRef.current + 1) % colors.length;
+        setCurrentColor(colors[colorIndexRef.current]);
         // Clamp position to prevent getting stuck
         positionRef.current.x = Math.max(
           0,
@@ -53,8 +58,9 @@ export default function DVDScreensaver() {
         positionRef.current.y >= containerHeight - LOGO_HEIGHT
       ) {
         velocityRef.current.dy *= -1;
-        // Cycle through RGB
-        hueRef.current = (hueRef.current + 120) % 360;
+        // Cycle to next color
+        colorIndexRef.current = (colorIndexRef.current + 1) % colors.length;
+        setCurrentColor(colors[colorIndexRef.current]);
         // Clamp position to prevent getting stuck
         positionRef.current.y = Math.max(
           0,
@@ -64,8 +70,6 @@ export default function DVDScreensaver() {
 
       // Apply transformations
       logo.style.transform = `translate(${positionRef.current.x}px, ${positionRef.current.y}px)`;
-      // RGB cycling: brighten + saturate first, then hue-rotate for visible color changes
-      logo.style.filter = `brightness(1.5) saturate(2) hue-rotate(${hueRef.current}deg)`;
 
       // Continue animation
       animationFrameRef.current = requestAnimationFrame(animate);
@@ -102,14 +106,26 @@ export default function DVDScreensaver() {
           height: `${LOGO_HEIGHT}px`,
         }}
       >
-        <Image
-          src="/sync-wordmark.svg"
-          alt="Sync '25"
-          width={LOGO_WIDTH}
-          height={LOGO_HEIGHT}
-          className="h-full w-full"
-          priority
-        />
+        {/* SVG with color overlay using mix-blend-mode */}
+        <div className="relative h-full w-full">
+          <Image
+            src="/sync-wordmark.svg"
+            alt="Sync '25"
+            width={LOGO_WIDTH}
+            height={LOGO_HEIGHT}
+            className="h-full w-full"
+            priority
+          />
+          {/* Color overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundColor: currentColor,
+              mixBlendMode: "multiply",
+              opacity: 0.85,
+            }}
+          />
+        </div>
       </div>
     </div>
   );
