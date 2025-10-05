@@ -40,8 +40,8 @@ body {
 
 /* Dark mode overrides */
 .dark {
-  --color-surface-base: #000000;
-  --color-surface-primary: #000000;
+  --color-surface-base: #111111;
+  --color-surface-primary: #111111;
   --color-surface-sunken: rgba(255, 255, 255, 0.04);
   --color-surface-hover: rgba(255, 255, 255, 0.04);
   --color-surface-pressed: rgba(255, 255, 255, 0.06);
