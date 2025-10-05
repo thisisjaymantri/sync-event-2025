@@ -13,7 +13,7 @@ export default function Header({ onTogglePanel, isPanelOpen }: HeaderProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="relative box-border flex h-[32px] w-full shrink-0 items-center justify-between px-[12px] py-[4px]">
+    <div className="relative box-border flex h-[32px] w-full shrink-0 items-center justify-between pl-[12px] pr-[8px] py-[4px]">
       {/* Border */}
       <div
         aria-hidden="true"
