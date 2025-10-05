@@ -5,7 +5,7 @@ interface ListItemProps {
 }
 
 export default function ListItem({
-  time = "12:00 am",
+  time = "12:00 AM",
   event = "Label",
   status = "Upcoming",
 }: ListItemProps) {
