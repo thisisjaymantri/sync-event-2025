@@ -11,7 +11,7 @@ export default function ListItem({
 }: ListItemProps) {
   return (
     <div 
-      className="relative box-border flex h-[72px] w-full items-center justify-between px-[24px] py-0"
+      className="relative box-border flex h-[68px] w-full items-center justify-between px-[24px] py-0"
       style={state === "Complete" ? { opacity: 0.5 } : undefined}
     >
       {/* Border separator */}
