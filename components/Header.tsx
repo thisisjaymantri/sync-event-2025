@@ -8,7 +8,7 @@ export default function Header() {
       {/* Border */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 border-b border-[var(--color-border-tertiary)]"
+        className="pointer-events-none absolute inset-0 border-b-[0.5px] border-[var(--color-border-tertiary)]"
       />
 
       {/* Left section */}

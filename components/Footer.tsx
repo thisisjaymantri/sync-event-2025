@@ -42,7 +42,7 @@ export default function Footer() {
       {/* Border */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 border-t border-[var(--color-border-tertiary)]"
+        className="pointer-events-none absolute inset-0 border-t-[0.5px] border-[var(--color-border-tertiary)]"
       />
 
       {/* Left section */}
