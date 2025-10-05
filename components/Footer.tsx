@@ -7,9 +7,31 @@ import { useEffect, useState } from "react";
 export default function Footer() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [btcPrice, setBtcPrice] = useState("$200,020.48");
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const fetchBtcPrice = async () => {
+      try {
+        const response = await fetch("/api/btc-price");
+        const data = await response.json();
+        setBtcPrice(data.price);
+      } catch (error) {
+        console.error("Failed to fetch BTC price:", error);
+        // Keep fallback price
+      }
+    };
+
+    // Initial fetch
+    fetchBtcPrice();
+
+    // Refresh every 60 seconds
+    const interval = setInterval(fetchBtcPrice, 60000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const iconPath = mounted ? `/icons/${resolvedTheme || "light"}` : "/icons/light";
@@ -25,11 +47,11 @@ export default function Footer() {
       />
 
       {/* Left section */}
-      <div className="z-10 flex h-[24px] shrink-0 items-center gap-[48px] whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[12px] leading-normal">
-        <div className="flex shrink-0 items-center gap-[4px]">
-          <p className="text-[var(--color-text-secondary)]">BTC/USD</p>
-          <p className="text-[var(--color-text-tertiary)]">$200,020.48</p>
-        </div>
+          <div className="z-10 flex h-[24px] shrink-0 items-center gap-[48px] whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[12px] leading-normal">
+            <div className="flex shrink-0 items-center gap-[4px]">
+              <p className="text-[var(--color-text-secondary)]">BTC/USD</p>
+              <p className="text-[var(--color-text-tertiary)]">{btcPrice}</p>
+            </div>
         <p className="text-[var(--color-text-tertiary)]">Sync &apos;25</p>
         <p className="text-[var(--color-text-tertiary)]">Los Angeles, CA</p>
       </div>
