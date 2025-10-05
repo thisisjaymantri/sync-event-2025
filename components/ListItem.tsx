@@ -28,7 +28,10 @@ export default function ListItem({
       <div className="relative z-10 flex shrink-0 items-center justify-center gap-[8px]">
         {/* Indicator (Active status) */}
         {status === "Active" && (
-          <div className="absolute left-[-16px] top-1/2 size-[8px] -translate-y-1/2 rounded-[2px] bg-[var(--active-indicator)]" />
+          <div 
+            className="absolute left-[-16px] top-1/2 size-[8px] -translate-y-1/2 rounded-[2px] bg-[var(--active-indicator)]"
+            style={{ animation: "pulse-indicator 2s ease-in-out infinite" }}
+          />
         )}
         <p className="whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[20px] leading-[30px] tracking-[-0.6px] text-[var(--color-text-primary)]">
           {time}

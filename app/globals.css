@@ -54,6 +54,16 @@ body {
   --color-theme-toggle-active-bg: #000000;
 }
 
+/* Active Indicator Pulse Animation */
+@keyframes pulse-indicator {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
 /* SVG Icon Theming */
 .themed-icon {
   display: inline-flex;
