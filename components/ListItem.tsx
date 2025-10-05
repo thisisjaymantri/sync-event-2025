@@ -1,18 +1,18 @@
 interface ListItemProps {
   time?: string;
   event?: string;
-  state?: "Default" | "Active" | "Complete";
+  status?: "Upcoming" | "Active" | "Complete";
 }
 
 export default function ListItem({
   time = "12:00 am",
   event = "Label",
-  state = "Default",
+  status = "Upcoming",
 }: ListItemProps) {
   return (
     <div 
       className="relative box-border flex h-[68px] w-full items-center justify-between px-[24px] py-0"
-      style={state === "Complete" ? { opacity: 0.5 } : undefined}
+      style={status === "Complete" ? { opacity: 0.5 } : undefined}
     >
       {/* Border separator */}
       <div
@@ -23,7 +23,7 @@ export default function ListItem({
       {/* Time (Leading section) */}
       <div className="relative z-10 flex shrink-0 items-center justify-center gap-[8px]">
         {/* Active indicator dot */}
-        {state === "Active" && (
+        {status === "Active" && (
           <div className="absolute left-[-16px] top-[14px] size-[8px] rounded-[2px] bg-[var(--active-indicator)]" />
         )}
         <p className="whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[20px] leading-[30px] tracking-[-0.6px] text-[var(--color-text-primary)]">
