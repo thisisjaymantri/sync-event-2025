@@ -8,6 +8,7 @@ export default function Footer() {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [btcPrice, setBtcPrice] = useState("$200,020.48");
+  const [isPriceAnimating, setIsPriceAnimating] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -34,6 +35,15 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
+  // Trigger animation when price changes
+  useEffect(() => {
+    if (mounted && btcPrice !== "$200,020.48") {
+      setIsPriceAnimating(true);
+      const timer = setTimeout(() => setIsPriceAnimating(false), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [btcPrice, mounted]);
+
   const isLight = mounted && resolvedTheme === "light";
   const isDark = mounted && resolvedTheme === "dark";
 
@@ -49,7 +59,17 @@ export default function Footer() {
           <div className="z-10 flex h-[24px] shrink-0 items-center gap-[48px] whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[12px] leading-normal">
             <div className="flex shrink-0 items-center gap-[4px]">
               <p className="text-[var(--color-text-secondary)]">BTC/USD</p>
-              <p className="text-[var(--color-text-tertiary)]">{btcPrice}</p>
+              <p 
+                className={`text-[var(--color-text-tertiary)] transition-all duration-300 ${
+                  isPriceAnimating ? "scale-110 opacity-100" : "scale-100 opacity-100"
+                }`}
+                style={isPriceAnimating ? {
+                  color: "var(--active-indicator)",
+                  fontWeight: "400",
+                } : undefined}
+              >
+                {btcPrice}
+              </p>
             </div>
         <p className="text-[var(--color-text-tertiary)]">Sync &apos;25</p>
         <p className="text-[var(--color-text-tertiary)]">Los Angeles, CA</p>
