@@ -39,7 +39,7 @@ export default function Footer() {
   useEffect(() => {
     if (mounted && btcPrice !== "$200,020.48") {
       setIsPriceAnimating(true);
-      const timer = setTimeout(() => setIsPriceAnimating(false), 600);
+      const timer = setTimeout(() => setIsPriceAnimating(false), 400);
       return () => clearTimeout(timer);
     }
   }, [btcPrice, mounted]);
@@ -60,13 +60,9 @@ export default function Footer() {
             <div className="flex shrink-0 items-center gap-[4px]">
               <p className="text-[var(--color-text-secondary)]">BTC/USD</p>
               <p 
-                className={`text-[var(--color-text-tertiary)] transition-all duration-300 ${
-                  isPriceAnimating ? "scale-110 opacity-100" : "scale-100 opacity-100"
+                className={`text-[var(--color-text-tertiary)] transition-opacity duration-200 ${
+                  isPriceAnimating ? "opacity-40" : "opacity-100"
                 }`}
-                style={isPriceAnimating ? {
-                  color: "var(--active-indicator)",
-                  fontWeight: "400",
-                } : undefined}
               >
                 {btcPrice}
               </p>
