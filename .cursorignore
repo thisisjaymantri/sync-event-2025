@@ -1,0 +1,16 @@
+# Ignore SVG files to prevent Cursor from attempting to preview them
+# Cursor only supports jpeg, png, gif, webp - not SVG
+*.svg
+
+# Ignore other binary/image files that might cause issues
+*.ico
+*.webp
+*.woff
+*.woff2
+*.ttf
+*.otf
+
+# Ignore build artifacts
+.next/
+.vercel/
+node_modules/

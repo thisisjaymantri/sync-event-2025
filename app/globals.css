@@ -1,22 +1,23 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Design tokens from Figma */
-  --color-background: #111111;
-  --color-border-tertiary: rgba(255, 255, 255, 0.1);
-  --color-text-primary: #f0f0ee;
-  --color-text-secondary: rgba(255, 255, 255, 0.7);
-  --color-text-tertiary: rgba(255, 255, 255, 0.5);
-  --color-active-indicator: #09f309;
-  --color-gray-975: #111111;
-  
-  /* Spacing tokens */
+  /* Shared tokens (same across themes) */
   --spacing-xs: 8px;
   --spacing-xl: 24px;
   --spacing-none: 0;
-  
-  /* Stroke tokens */
   --stroke-xs: 0.5px;
+  --active-indicator: #09f309;
+  
+  /* Light mode tokens (default) */
+  --color-surface-base: #ffffff;
+  --color-surface-sunken: #f4f4f3;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #7c7c7c;
+  --color-text-tertiary: #7c7c7c;
+  --color-border-tertiary: rgba(0, 0, 0, 0.1);
+  --color-icon-primary: #1a1a1a;
+  --color-icon-secondary: #7c7c7c;
+  --color-theme-toggle-active-bg: #ffffff;
 }
 
 * {
@@ -33,9 +34,22 @@ body {
 }
 
 body {
-  background: var(--color-background);
+  background: var(--color-surface-base);
   color: var(--color-text-primary);
   font-family: var(--font-suisse), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-surface-base: #111111;
+  --color-surface-sunken: rgba(255, 255, 255, 0.04);
+  --color-text-primary: #f0f0ee;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-tertiary: rgba(255, 255, 255, 0.5);
+  --color-border-tertiary: rgba(255, 255, 255, 0.1);
+  --color-icon-primary: #f8f8f7;
+  --color-icon-secondary: rgba(255, 255, 255, 0.5);
+  --color-theme-toggle-active-bg: #000000;
 }

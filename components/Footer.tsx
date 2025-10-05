@@ -1,58 +1,79 @@
+"use client";
+
 import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const iconPath = mounted ? `/icons/${resolvedTheme || "light"}` : "/icons/light";
+  const isLight = resolvedTheme === "light";
+  const isDark = resolvedTheme === "dark";
+
   return (
-    <div className="relative box-border flex h-[32px] w-full shrink-0 items-center justify-between px-[12px]">
+    <div className="relative box-border flex h-[32px] w-full shrink-0 items-center justify-between px-[12px] py-0">
       {/* Border */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 border-t border-[rgba(255,255,255,0.1)]"
+        className="pointer-events-none absolute inset-0 border-t border-[var(--color-border-tertiary)]"
       />
 
       {/* Left section */}
       <div className="z-10 flex h-[24px] shrink-0 items-center gap-[48px] whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[12px] leading-normal">
         <div className="flex shrink-0 items-center gap-[4px]">
-          <p className="text-[rgba(255,255,255,0.7)]">BTC/USD</p>
-          <p className="text-[rgba(255,255,255,0.5)]">$200,020.48</p>
+          <p className="text-[var(--color-text-secondary)]">BTC/USD</p>
+          <p className="text-[var(--color-text-tertiary)]">$200,020.48</p>
         </div>
-        <p className="text-[rgba(255,255,255,0.5)]">Sync &apos;25</p>
-        <p className="text-[rgba(255,255,255,0.5)]">Los Angeles, CA</p>
+        <p className="text-[var(--color-text-tertiary)]">Sync &apos;25</p>
+        <p className="text-[var(--color-text-tertiary)]">Los Angeles, CA</p>
       </div>
 
       {/* Right section */}
       <div className="z-10 flex shrink-0 items-center gap-[24px]">
         {/* Theme toggle */}
-        <div className="box-border flex shrink-0 items-center gap-0 rounded-[4px] bg-[rgba(255,255,255,0.04)] p-[2px]">
-          <div className="relative size-[16px] shrink-0 rounded-[3.2px] opacity-50">
-            <Image
-              src="/icons/sun.svg"
-              alt="Light theme"
-              fill
-              className="object-contain"
-            />
-          </div>
-          <div className="relative size-[16px] shrink-0 rounded-[3.2px] bg-black">
-            <Image
-              src="/icons/moon.svg"
-              alt="Dark theme"
-              fill
-              className="object-contain"
-            />
-          </div>
-          <div className="relative size-[16px] shrink-0 rounded-[3.2px] opacity-50">
-            <Image
-              src="/icons/theme.svg"
-              alt="System theme"
-              fill
-              className="object-contain"
-            />
-          </div>
+        <div className="box-border flex shrink-0 items-center gap-0 rounded-[4px] bg-[var(--color-surface-sunken)] p-[2px]">
+          <button
+            onClick={() => setTheme("light")}
+            className="relative size-[16px] shrink-0 rounded-[3.2px] transition-colors"
+            style={{ background: isLight ? "var(--color-theme-toggle-active-bg)" : "transparent" }}
+            aria-label="Light theme"
+          >
+            <div className="absolute left-1/2 top-1/2 size-[12px] -translate-x-1/2 -translate-y-1/2">
+              <Image
+                src={`${iconPath}/sun.svg`}
+                alt="Light theme"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </button>
+          <button
+            onClick={() => setTheme("dark")}
+            className="relative size-[16px] shrink-0 rounded-[3.2px] transition-colors"
+            style={{ background: isDark ? "var(--color-theme-toggle-active-bg)" : "transparent" }}
+            aria-label="Dark theme"
+          >
+            <div className="absolute left-1/2 top-1/2 size-[12px] -translate-x-1/2 -translate-y-1/2">
+              <Image
+                src={`${iconPath}/moon.svg`}
+                alt="Dark theme"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </button>
         </div>
 
         {/* Mute button */}
         <div className="relative size-[16px] shrink-0 opacity-50">
           <Image
-            src="/icons/mute.svg"
+            src={`${iconPath}/mute.svg`}
             alt="Mute"
             fill
             className="object-contain"
