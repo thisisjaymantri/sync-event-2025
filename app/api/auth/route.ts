@@ -3,8 +3,15 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   const { password } = await request.json();
   
-  // Check against environment variable
-  const correctPassword = process.env.STAGING_PASSWORD || 'sync2025';
+  // Check against environment variable (no fallback for security)
+  const correctPassword = process.env.STAGING_PASSWORD;
+  
+  if (!correctPassword) {
+    return NextResponse.json(
+      { success: false, error: 'Password not configured' },
+      { status: 500 }
+    );
+  }
   
   if (password === correctPassword) {
     const response = NextResponse.json({ success: true });
