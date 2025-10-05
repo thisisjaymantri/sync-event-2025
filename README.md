@@ -17,11 +17,31 @@ A web application for the Sync '25 event featuring a DVD-style screensaver anima
 # Install dependencies
 npm install
 
+# Create local environment file
+echo "STAGING_PASSWORD=sync2025" > .env.local
+
 # Run development server
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
+
+### Password Protection
+
+The site is protected with a password gate. Set the `STAGING_PASSWORD` environment variable:
+
+**Local Development:**
+```bash
+# .env.local
+STAGING_PASSWORD=your-password
+```
+
+**Vercel Production:**
+1. Go to Vercel Dashboard → Project Settings → Environment Variables
+2. Add: `STAGING_PASSWORD` = `your-secure-password`
+3. Redeploy
+
+Default password (if not set): `sync2025`
 
 ## Font Setup
 
