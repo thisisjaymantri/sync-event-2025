@@ -10,7 +10,11 @@ export default function DVDScreensaver() {
 
   // Position and velocity state
   const positionRef = useRef({ x: 100, y: 100 });
-  const velocityRef = useRef({ dx: 0.8, dy: 0.8 }); // Slower speed for classic DVD feel
+  // Random initial velocities for unpredictable movement
+  const velocityRef = useRef({ 
+    dx: 0.5 + Math.random() * 0.6, // Random between 0.5-1.1
+    dy: 0.5 + Math.random() * 0.6  // Random between 0.5-1.1
+  });
   const [currentColor, setCurrentColor] = useState("#FF0000"); // Start with red
   
   // RGB color palette
@@ -42,6 +46,9 @@ export default function DVDScreensaver() {
         positionRef.current.x >= containerWidth - LOGO_WIDTH
       ) {
         velocityRef.current.dx *= -1;
+        // Add slight randomness to velocity on bounce for unpredictability
+        velocityRef.current.dx += (Math.random() - 0.5) * 0.2;
+        velocityRef.current.dx = Math.max(0.5, Math.min(1.1, Math.abs(velocityRef.current.dx))) * Math.sign(velocityRef.current.dx);
         // Cycle to next color: Red -> Green -> Blue -> Red
         colorIndexRef.current = (colorIndexRef.current + 1) % colors.length;
         setCurrentColor(colors[colorIndexRef.current]);
@@ -58,6 +65,9 @@ export default function DVDScreensaver() {
         positionRef.current.y >= containerHeight - LOGO_HEIGHT
       ) {
         velocityRef.current.dy *= -1;
+        // Add slight randomness to velocity on bounce
+        velocityRef.current.dy += (Math.random() - 0.5) * 0.2;
+        velocityRef.current.dy = Math.max(0.5, Math.min(1.1, Math.abs(velocityRef.current.dy))) * Math.sign(velocityRef.current.dy);
         // Cycle to next color
         colorIndexRef.current = (colorIndexRef.current + 1) % colors.length;
         setCurrentColor(colors[colorIndexRef.current]);
