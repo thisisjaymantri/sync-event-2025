@@ -5,7 +5,7 @@ import SchedulePanel from "@/components/SchedulePanel";
 
 export default function Home() {
   return (
-    <div className="flex h-screen w-screen flex-col items-start bg-[var(--color-surface-base)]">
+    <div className="flex h-screen w-screen flex-col items-start">
       {/* Header */}
       <Header />
 
