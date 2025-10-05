@@ -76,7 +76,7 @@ export default function SchedulePanel() {
       {/* Gradient fade overlay (only if > 3 completed events) */}
       {shouldShowFade && (
         <div
-          className="pointer-events-none absolute left-0 top-0 h-[72px] w-[420px] bg-gradient-to-t from-transparent to-[var(--color-surface-base)]"
+          className="pointer-events-none absolute left-0 top-0 h-[72px] w-[420px] bg-gradient-to-t from-transparent to-[var(--color-surface-primary)]"
           aria-hidden="true"
         />
       )}

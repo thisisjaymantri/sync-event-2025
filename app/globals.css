@@ -31,7 +31,7 @@ body {
 }
 
 body {
-  background: var(--color-surface-base);
+  background: var(--color-surface-primary);
   color: var(--color-text-primary);
   font-family: var(--font-suisse), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -41,7 +41,7 @@ body {
 /* Dark mode overrides */
 .dark {
   --color-surface-base: #000000;
-  --color-surface-primary: #1a1a1a;
+  --color-surface-primary: #000000;
   --color-surface-sunken: rgba(255, 255, 255, 0.04);
   --color-surface-hover: rgba(255, 255, 255, 0.04);
   --color-surface-pressed: rgba(255, 255, 255, 0.06);

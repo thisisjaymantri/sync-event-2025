@@ -99,7 +99,7 @@ export default function DVDScreensaver() {
   return (
     <div
       ref={containerRef}
-      className="relative h-full w-full overflow-hidden bg-[var(--color-surface-base)]"
+      className="relative h-full w-full overflow-hidden bg-[var(--color-surface-primary)]"
     >
       {/* Border right */}
       <div
