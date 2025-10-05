@@ -5,11 +5,11 @@ export interface ScheduleItem {
 }
 
 export const scheduleData: ScheduleItem[] = [
-  { time: "9:30 am", event: "Welcome", state: "Active" },
-  { time: "10:00 am", event: "Opening keynote" },
-  { time: "10:30 am", event: "Product spotlight" },
-  { time: "11:15 am", event: "Break" },
-  { time: "11:45 am", event: "Fireside chat" },
+  { time: "9:30 am", event: "Welcome", state: "Complete" },
+  { time: "10:00 am", event: "Opening keynote", state: "Complete" },
+  { time: "10:30 am", event: "Product spotlight", state: "Complete" },
+  { time: "11:15 am", event: "Break", state: "Complete" },
+  { time: "11:45 am", event: "Fireside chat", state: "Active" },
   { time: "12:15 pm", event: "Lunch" },
   { time: "2:00 pm", event: "Open networks" },
   { time: "2:20 pm", event: "Spark update" },

@@ -10,7 +10,10 @@ export default function ListItem({
   state = "Default",
 }: ListItemProps) {
   return (
-    <div className="relative box-border flex h-[72px] w-full items-center justify-between px-[24px] py-0">
+    <div 
+      className="relative box-border flex h-[72px] w-full items-center justify-between px-[24px] py-0"
+      style={state === "Complete" ? { opacity: 0.5 } : undefined}
+    >
       {/* Border separator */}
       <div
         aria-hidden="true"
@@ -23,14 +26,14 @@ export default function ListItem({
         {state === "Active" && (
           <div className="absolute left-[-16px] top-[14px] size-[8px] rounded-[2px] bg-[var(--active-indicator)]" />
         )}
-        <p className="whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[24px] leading-[36px] tracking-[-0.72px] text-[var(--color-text-primary)]">
+        <p className="whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[20px] leading-[30px] tracking-[-0.6px] text-[var(--color-text-primary)]">
           {time}
         </p>
       </div>
 
       {/* Event name (Trailing section) */}
       <div className="flex shrink-0 items-center justify-center gap-[4px]">
-        <p className="whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[24px] leading-[36px] tracking-[-0.72px] text-[var(--color-text-primary)]">
+        <p className="whitespace-pre text-nowrap font-['Suisse_Intl',_sans-serif] text-[20px] leading-[30px] tracking-[-0.6px] text-[var(--color-text-primary)]">
           {event}
         </p>
       </div>
