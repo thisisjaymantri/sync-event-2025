@@ -1,32 +1,37 @@
 # 📊 Google Sheets Live Schedule Setup
 
-This guide will help you connect Google Sheets so your event staff can update the schedule in real-time from their phones!
+Connect your event schedule to Google Sheets for real-time updates. No API keys, no Google Cloud Console, no special permissions needed!
 
 ---
 
-## 🎯 What You'll Get
+## ✨ What You Need
 
-- ✅ Event staff can edit schedule from any device
-- ✅ Changes appear on the live site within 30 seconds
-- ✅ Simple spreadsheet interface (no technical knowledge needed)
-- ✅ Collaborative editing (multiple people can update)
-- ✅ Automatic fallback to hardcoded schedule if sheets fail
+- ✅ A Google account (personal or work - any will work!)
+- ✅ 5 minutes
+- ✅ That's it!
 
 ---
 
-## 📝 Step 1: Create Your Google Sheet
+## 🚀 Step-by-Step Setup
 
-### 1.1 Copy This Template
+### Step 1: Create Your Google Sheet
 
-Create a new Google Sheet with exactly these column headers in Row 1:
+1. Go to: https://sheets.google.com
+2. Create a new sheet
+3. Add these **exact** column headers in Row 1:
 
 | Time     | Event             | Status   |
 |----------|-------------------|----------|
-| 9:30 am  | Welcome           | Complete |
-| 10:00 am | Opening keynote   | Complete |
-| 10:30 am | Product spotlight | Complete |
-| 11:15 am | Break             | Complete |
-| 11:45 am | Fireside chat     | Active   |
+
+4. Fill in your schedule starting from Row 2:
+
+| Time     | Event             | Status   |
+|----------|-------------------|----------|
+| 9:30 am  | Welcome           | Upcoming |
+| 10:00 am | Opening keynote   | Upcoming |
+| 10:30 am | Product spotlight | Upcoming |
+| 11:15 am | Break             | Upcoming |
+| 11:45 am | Fireside chat     | Upcoming |
 | 12:15 pm | Lunch             | Upcoming |
 | 2:00 pm  | Open networks     | Upcoming |
 | 2:20 pm  | Spark update      | Upcoming |
@@ -36,152 +41,152 @@ Create a new Google Sheet with exactly these column headers in Row 1:
 | 5:30 pm  | Happy hour        | Upcoming |
 | 6:30 pm  | Dinner            | Upcoming |
 
-### 1.2 Important Formatting Rules
+**Status Options (case-sensitive!):**
+- `Upcoming` - Normal appearance, no special styling
+- `Active` - Shows green indicator dot
+- `Complete` - Faded/greyed out at 50% opacity
 
-- **Column A (Time)**: Any format (e.g., "9:30 am", "10:00 AM", "14:30")
-- **Column B (Event)**: Any text
-- **Column C (Status)**: MUST be exactly one of:
-  - `Upcoming` (default, no styling)
-  - `Active` (shows green dot)
-  - `Complete` (faded/greyed out)
+---
 
-⚠️ **Status values are case-sensitive!**
+### Step 2: Make Sheet Public
 
-### 1.3 Share the Sheet
-
-1. Click **Share** button (top right)
-2. Under "General access" → Change to **"Anyone with the link"**
-3. Set permission to **"Viewer"** (not Editor!)
+1. Click the **Share** button (top right)
+2. Click **"Anyone with the link"**
+3. Set to **"Viewer"** (not Editor!)
 4. Click **Done**
 
 ---
 
-## 🔑 Step 2: Get Your Google API Key
+### Step 3: Get Your CSV URL
 
-### 2.1 Enable Google Sheets API
+1. Copy your sheet URL from the browser. It looks like:
+   ```
+   https://docs.google.com/spreadsheets/d/1a2b3c4d5e6f7g8h9i0/edit#gid=0
+   ```
 
-1. Go to: https://console.cloud.google.com/
-2. Create a new project (or select existing)
-3. Go to: **APIs & Services** → **Library**
-4. Search for **"Google Sheets API"**
-5. Click **Enable**
+2. Extract the **Sheet ID** (the long string between `/d/` and `/edit`):
+   ```
+   1a2b3c4d5e6f7g8h9i0
+   ```
 
-### 2.2 Create API Key
+3. Create your CSV export URL using this format:
+   ```
+   https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/export?format=csv&gid=0
+   ```
 
-1. Go to: **APIs & Services** → **Credentials**
-2. Click **+ Create Credentials** → **API Key**
-3. Copy the API key (you'll need this for Vercel)
-4. Click **Edit API key** → **Restrict Key**:
-   - Under "API restrictions" → Select **"Restrict key"**
-   - Check only **"Google Sheets API"**
-   - Under "Application restrictions" → Select **"HTTP referrers"**
-   - Add: `*.vercel.app/*` and your production domain
-   - Click **Save**
+   **Example:**
+   ```
+   https://docs.google.com/spreadsheets/d/1a2b3c4d5e6f7g8h9i0/export?format=csv&gid=0
+   ```
+
+4. Test it! Paste the CSV URL in your browser - you should see your data as plain text.
 
 ---
 
-## 🚀 Step 3: Configure Vercel
-
-### 3.1 Get Your Sheet ID
-
-From your Google Sheet URL, copy the ID:
-```
-https://docs.google.com/spreadsheets/d/[THIS_IS_YOUR_SHEET_ID]/edit
-```
-
-### 3.2 Add Environment Variables to Vercel
+### Step 4: Add to Vercel
 
 1. Go to: https://vercel.com/jaylightsparkcs-projects/sync/settings/environment-variables
-2. Add two new variables:
-
-**Variable 1:**
-- **Key**: `GOOGLE_SHEET_ID`
-- **Value**: Your sheet ID from step 3.1
-- **Environments**: Production, Preview, Development
-
-**Variable 2:**
-- **Key**: `GOOGLE_API_KEY`
-- **Value**: Your API key from step 2.2
-- **Environments**: Production, Preview, Development
-
-3. Click **Save** for each
-4. **Redeploy** your site (Vercel will prompt you)
+2. Click **"Add New"**
+3. Add:
+   - **Key**: `GOOGLE_SHEET_CSV_URL`
+   - **Value**: Your CSV URL from Step 3
+   - **Environments**: Check all three (Production, Preview, Development)
+4. Click **Save**
+5. **Redeploy** your site (Vercel will prompt you)
 
 ---
 
-## ✅ Step 4: Test It!
+## ✅ That's It!
 
-1. Visit your live site
-2. In dev mode, you'll see a small badge showing `google-sheets` if connected
-3. Edit your Google Sheet (change a status or event name)
-4. Wait 30 seconds
-5. Refresh your site → Changes should appear!
+Your schedule is now live! The app will automatically fetch updates every 30 seconds.
 
 ---
 
-## 📱 Day-of-Event Usage
+## 📱 Using It Day-of-Event
 
-### For Your Event Staff:
+**For Event Staff:**
 
-**Updating the schedule:**
-1. Open the Google Sheet on phone/tablet
+1. Open the Google Sheet on your phone/tablet
 2. Find the current event
-3. Change its **Status** column to `Active`
-4. Change previous event to `Complete`
-5. Save (happens automatically in Google Sheets)
-6. Changes appear on the live site within 30 seconds!
+3. Change the **Status** column to `Active`
+4. Mark previous events as `Complete`
+5. Changes appear on the live site within 30 seconds!
 
 **Pro Tips:**
-- Use data validation in Google Sheets to create a dropdown for the Status column
-- Keep the sheet open on a tablet backstage
-- Assign one person as "schedule manager"
-- Test the workflow before the event
+- Add data validation to the Status column (see below)
+- Keep the sheet open backstage on a tablet
+- Assign one person as the "schedule runner"
+- Test it before the event!
+
+---
+
+## 🎨 Optional: Add Status Dropdown
+
+Make it foolproof with a dropdown menu:
+
+1. Select cells **C2:C100** (the Status column, below header)
+2. Go to **Data** → **Data validation**
+3. Under "Criteria" select **"List of items"**
+4. Enter: `Upcoming,Active,Complete`
+5. Check **"Show dropdown list in cell"**
+6. Click **Save**
+
+Now staff can just click and select the status! ✨
 
 ---
 
 ## 🔧 Troubleshooting
 
-### Schedule isn't updating?
-- Check that BOTH environment variables are set in Vercel
-- Verify the sheet is shared as "Anyone with link can view"
-- Check that Status values are exactly: `Upcoming`, `Active`, or `Complete` (case-sensitive)
-- Look at browser console for error messages
+### "Schedule isn't updating"
+- Make sure the sheet is set to "Anyone with the link can view"
+- Check that the CSV URL works in your browser
+- Verify `GOOGLE_SHEET_CSV_URL` is set in Vercel
+- Make sure Status values are exactly: `Upcoming`, `Active`, or `Complete`
 
-### Shows "local" or "local-fallback"?
-- Sheet is not connected yet (using hardcoded data)
-- This is fine! The site still works, just not editable from sheets
+### "Shows 'local' in corner"
+- The Google Sheet isn't connected yet
+- App is using hardcoded data from `lib/schedule-data.ts`
+- This is fine! The site still works perfectly
 
-### API quota errors?
-- Google Sheets API has generous free limits
-- Your app only fetches once per 30 seconds per viewer
-- For a typical event, you'll be well within limits
-
----
-
-## 🎨 Optional: Add Data Validation
-
-Make it easier for staff to set the status correctly:
-
-1. Select the Status column (C2:C100)
-2. **Data** → **Data validation**
-3. Criteria: **List of items**
-4. Enter: `Upcoming,Active,Complete`
-5. Click **Save**
-
-Now the Status column has a dropdown! ✨
+### "Some events are missing"
+- Make sure Time and Event columns aren't empty
+- Check that there are no blank rows in the middle of your schedule
 
 ---
 
-## 🔄 Reverting to Hardcoded Data
+## 🔄 To Disable Google Sheets
 
-To disable Google Sheets and use the hardcoded schedule:
+Want to go back to the hardcoded schedule?
 
 1. Go to Vercel environment variables
-2. Delete `GOOGLE_SHEET_ID` and `GOOGLE_API_KEY`
+2. Delete `GOOGLE_SHEET_CSV_URL`
 3. Redeploy
 
-The app will automatically use `lib/schedule-data.ts` as the source.
+The app will use the schedule in `lib/schedule-data.ts` instead.
 
 ---
 
-Need help? The app gracefully falls back to hardcoded data if anything goes wrong, so your event will never break! 🎉
+## 🎯 Why This Works Great
+
+✅ **No API key required** - Just share a public link  
+✅ **Works with any Google account** - Personal or corporate  
+✅ **No special permissions needed** - No Google Cloud Console access  
+✅ **5-minute setup** - Super fast and simple  
+✅ **Real-time updates** - Changes appear within 30 seconds  
+✅ **Non-technical friendly** - Anyone can edit a spreadsheet
+
+---
+
+## 🔒 Security Note
+
+Your schedule will be publicly viewable via the CSV URL, but:
+- Only you can edit it (unless you give edit permissions)
+- It's just event schedule info (not sensitive)
+- The URL is obscure and not easily guessable
+- Perfect for an event schedule use case!
+
+If you need password protection on the sheet itself, stick with the app's existing password gate - that protects the entire site.
+
+---
+
+**Need help?** The app gracefully falls back to hardcoded data if anything goes wrong. Your event will never break! 🎉
