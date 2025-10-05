@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function DVDScreensaver() {
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
 
   // Position and velocity state
   const positionRef = useRef({ x: 100, y: 100 });
