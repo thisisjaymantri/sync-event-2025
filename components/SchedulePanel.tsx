@@ -46,6 +46,7 @@ export default function SchedulePanel() {
             time={item.time}
             event={item.event}
             status={item.status}
+            last={index === scheduleData.length - 1}
           />
         ))}
       </div>

@@ -2,6 +2,7 @@ export interface ScheduleItem {
   time: string;
   event: string;
   status?: "Upcoming" | "Active" | "Complete";
+  last?: boolean;
 }
 
 export const scheduleData: ScheduleItem[] = [

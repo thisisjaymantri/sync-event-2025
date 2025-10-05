@@ -2,23 +2,27 @@ interface ListItemProps {
   time?: string;
   event?: string;
   status?: "Upcoming" | "Active" | "Complete";
+  last?: boolean;
 }
 
 export default function ListItem({
   time = "12:00 AM",
   event = "Label",
   status = "Upcoming",
+  last = false,
 }: ListItemProps) {
   return (
     <div 
       className="relative box-border flex h-[68px] w-full items-center justify-between px-[24px] py-0"
       style={status === "Complete" ? { opacity: 0.5 } : undefined}
     >
-      {/* Border separator */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 border-b-[0.5px] border-[var(--color-border-tertiary)]"
-      />
+      {/* Border separator - hidden on last item */}
+      {!last && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 border-b-[0.5px] border-[var(--color-border-tertiary)]"
+        />
+      )}
 
       {/* Time (Leading section) */}
       <div className="relative z-10 flex shrink-0 items-center justify-center gap-[8px]">
