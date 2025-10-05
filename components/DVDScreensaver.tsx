@@ -64,7 +64,8 @@ export default function DVDScreensaver() {
 
       // Apply transformations
       logo.style.transform = `translate(${positionRef.current.x}px, ${positionRef.current.y}px)`;
-      logo.style.filter = `hue-rotate(${hueRef.current}deg) saturate(1.2)`;
+      // RGB cycling: brighten + saturate first, then hue-rotate for visible color changes
+      logo.style.filter = `brightness(1.5) saturate(2) hue-rotate(${hueRef.current}deg)`;
 
       // Continue animation
       animationFrameRef.current = requestAnimationFrame(animate);
