@@ -24,13 +24,15 @@ export default function Home() {
           <DVDScreensaver />
         </div>
 
-        {/* Right panel - Schedule with slide animation */}
+        {/* Right panel - Schedule with slide animation and dynamic width */}
         <div
-          className={`h-full w-[420px] transition-transform duration-300 ease-in-out ${
-            isPanelOpen ? "translate-x-0" : "translate-x-full"
+          className={`h-full overflow-hidden transition-all duration-300 ease-in-out ${
+            isPanelOpen ? "w-[420px]" : "w-0"
           }`}
         >
-          <SchedulePanel />
+          <div className="h-full w-[420px]">
+            <SchedulePanel />
+          </div>
         </div>
       </div>
 
