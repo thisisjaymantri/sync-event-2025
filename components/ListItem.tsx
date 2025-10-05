@@ -18,7 +18,7 @@ export default function ListItem({
       />
 
       {/* Time (Leading section) */}
-      <div className="relative z-10 flex shrink-0 items-center gap-[8px]">
+      <div className="relative z-10 flex shrink-0 items-center justify-center gap-[8px]">
         {/* Active indicator dot */}
         {state === "Active" && (
           <div className="absolute left-[-16px] top-[14px] size-[8px] rounded-[2px] bg-[var(--active-indicator)]" />
