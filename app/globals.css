@@ -9,8 +9,8 @@
   --active-indicator: #09f309;
   
   /* Light mode tokens (default) */
-  --color-surface-primary: #f8f8f7;
   --color-surface-base: #ffffff;
+  --color-surface-primary: #f8f8f7;
   --color-surface-sunken: #f4f4f3;
   --color-surface-hover: rgba(0, 0, 0, 0.04);
   --color-surface-pressed: rgba(0, 0, 0, 0.06);
@@ -31,7 +31,7 @@ body {
 }
 
 body {
-  background: var(--color-surface-primary);
+  background: var(--color-surface-base);
   color: var(--color-text-primary);
   font-family: var(--font-suisse), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -40,8 +40,8 @@ body {
 
 /* Dark mode overrides */
 .dark {
+  --color-surface-base: #000000;
   --color-surface-primary: #1a1a1a;
-  --color-surface-base: #111111;
   --color-surface-sunken: rgba(255, 255, 255, 0.04);
   --color-surface-hover: rgba(255, 255, 255, 0.04);
   --color-surface-pressed: rgba(255, 255, 255, 0.06);
