@@ -16,7 +16,7 @@ const suisseIntl = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Sync '25 - Event Schedule",
+  title: "Sync '25",
   description: "Run of show schedule for Sync '25 event in Los Angeles",
 };
 
